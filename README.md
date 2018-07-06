@@ -48,7 +48,8 @@ To run the project as is:
 1. `bundle install`
 2. `rake db:create`
 3. `rake db:migrate`
-4. `rails s`
+4. Set an env variable with a valid google API key: `export GOOGLE_API_KEY=ABC123`
+5. `rails s`
 
 To run the tests:
 1. `rails generate rspec:install`
