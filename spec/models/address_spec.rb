@@ -37,6 +37,36 @@ RSpec.describe Address, :type => :model do
       end
     end
 
+    describe '#street_address' do
+      context 'address does not have a predirection' do
+        let(:address) { create(:address_ny, street_predirection: nil) }
+        it 'prints the street address components without an extra space' do
+          expect(address.street_address).to eq('129 81st St Apt 5A')
+        end
+      end
+
+      context 'address does not have a postdirection' do
+        let(:address) { create(:address_ny, street_postdirection: nil) }
+        it 'prints the street address components without an extra space' do
+          expect(address.street_address).to eq('129 W 81st St Apt 5A')
+        end
+      end
+
+      context 'address does not have a unit type' do
+        let(:address) { create(:address_ny, unit_type: nil) }
+        it 'prints the street address components without an extra space' do
+          expect(address.street_address).to eq('129 W 81st St 5A')
+        end
+      end
+
+      context 'address does not have a unit number' do
+        let(:address) { create(:address_ny, unit_number: nil) }
+        it 'prints the street address components without an extra space' do
+          expect(address.street_address).to eq('129 W 81st St Apt')
+        end
+      end
+    end
+
     # Do we want to add other addresses that we know are good or bad and say that those should no be valid
   end
 end
