@@ -84,13 +84,13 @@ RSpec.describe 'AddressParsingService' do
     end
 
     context 'address has a street predirection' do
-      let(:address) { '129 W Two Name St #5A, New York, NY 10024, USA' }
+      let(:address) { '129 NW Two Name St #5A, New York, NY 10024, USA' }
       let(:address_components) do
         {
           administrative_area_level_1: 'NY',
           locality: 'New York',
           postal_code: '10024',
-          route: 'W Two Name St',
+          route: 'NW Two Name St',
           street_number: '129',
           subpremise: '5A'
         }
@@ -98,7 +98,7 @@ RSpec.describe 'AddressParsingService' do
 
       it 'returns the proper street_predirection, street_name and street_type' do
         expect(subject).to match(a_hash_including({
-          street_predirection: 'W',
+          street_predirection: 'NW',
           street_name: 'Two Name',
           street_type: 'St'
         }))
@@ -106,13 +106,13 @@ RSpec.describe 'AddressParsingService' do
     end
 
     context 'address has a street postdirection' do
-      let(:address) { '129 Two Name St W #5A, New York, NY 10024, USA' }
+      let(:address) { '129 Two Name St NW #5A, New York, NY 10024, USA' }
       let(:address_components) do
         {
           administrative_area_level_1: 'NY',
           locality: 'New York',
           postal_code: '10024',
-          route: 'Two Name St W',
+          route: 'Two Name St NW',
           street_number: '129',
           subpremise: '5A'
         }
@@ -120,7 +120,7 @@ RSpec.describe 'AddressParsingService' do
 
       it 'returns the proper street_postdirection, street_name and street_type' do
         expect(subject).to match(a_hash_including({
-          street_postdirection: 'W',
+          street_postdirection: 'NW',
           street_name: 'Two Name',
           street_type: 'St'
         }))
@@ -223,6 +223,25 @@ RSpec.describe 'AddressParsingService' do
       it 'returns the proper house_number' do
         expect(subject).to match(a_hash_including({
           house_number: '129',
+        }))
+      end
+    end
+
+    context 'address has a street number and a predirection' do
+      let(:address) { '129 1/2 West 81st St New York, NY 10024, USA' }
+      let(:address_components) do
+        {
+          administrative_area_level_1: 'NY',
+          locality: 'New York',
+          postal_code: '10024',
+          route: 'W 81st St',
+          street_number: '129',
+        }
+      end
+
+      it 'returns the proper house_number' do
+        expect(subject).to match(a_hash_including({
+          house_number: '129 1/2',
         }))
       end
     end

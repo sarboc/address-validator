@@ -44,13 +44,15 @@ class AddressParsingService
     route = search_result[:route].dup
 
     if route
-      if Address::DIRECTIONALS.include?(route[0])
-        street_predirection = route[0]
+      route_first_chunk = route.split(' ').first
+      if Address::DIRECTIONALS.include?(route_first_chunk)
+        street_predirection = route_first_chunk
         route.sub!("#{street_predirection} ", '')
       end
 
-      if Address::DIRECTIONALS.include?(route[-1])
-        street_postdirection = route[-1]
+      route_last_chunk = route.split(' ').last
+      if Address::DIRECTIONALS.include?(route_last_chunk)
+        street_postdirection = route_last_chunk
         route.sub!(" #{street_postdirection}", '')
       end
 
@@ -72,13 +74,13 @@ class AddressParsingService
     house_number = nil
 
     if search_result[:route]
-      route_start_index = address.index(search_result[:route])
-      house_number = address[0...route_start_index].strip
+      beginning_of_route_string = search_result[:route].split(' ').first
+      route_start_index = address.index(" #{beginning_of_route_string}")
+      house_number = address[0...route_start_index] if route_start_index
     elsif search_result[:street_number]
       house_number = search_result[:street_number]
     end
 
-    house_number = nil if house_number && house_number.empty?
     { house_number: house_number }
   end
 
