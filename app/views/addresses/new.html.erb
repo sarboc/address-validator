@@ -1,5 +1,18 @@
-<% if @message %>
-  <%= @message %>
+<% if @message && @message[:success] %>
+  <div class="alert alert-success" role="alert">
+    <%= @message[:success] %>
+  </div>
+<% end %>
+
+<% if @message && @message[:failure] %>
+  <div class="alert alert-danger" role="alert">
+    <%= @message[:failure] %>
+    <ul>
+      <% @message[:errors].each do |error, message| %>
+        <li><%= "#{error.to_s.titleize} #{message}" %></li>
+      <% end %>
+    </ul>
+  </div>
 <% end %>
 
 <%= form_tag '/addresses', method: :post do %>

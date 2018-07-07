@@ -10,10 +10,10 @@ class AddressesController < ApplicationController
     @address = Address.new(parsed_address)
 
     if @address.save
-      @message = 'address was saved!'
+      @message = {success: 'Address is valid!'}
       @street_address, @city, @state, @zip_code = nil
     else
-      @message = 'fix that address!'
+      @message = {failure: 'Address is not valid!', errors: @address.errors}
       @street_address = address_params[:street_address]
       @city = address_params[:city]
       @state = address_params[:state]
