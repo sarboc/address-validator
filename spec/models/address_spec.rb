@@ -6,7 +6,7 @@ RSpec.describe Address, :type => :model do
       it 'can create a new address' do
         expect(Address.new(
                           house_number: 1600,
-                          street_name: 'Pennsylavnia',
+                          street_name: 'Pennsylvania',
                           street_type: 'Avenue',
                           street_postdirection: 'NW',
                           city: 'Washington',
@@ -20,7 +20,7 @@ RSpec.describe Address, :type => :model do
       it 'cannot create a new address' do
         expect(Address.new(
                           house_number: 1600,
-                          street_name: 'Pennsylavnia',
+                          street_name: 'Pennsylvania',
                           street_type: 'Avenue',
                           street_postdirection: 'NW',
                           city: 'Washington',
