@@ -6,7 +6,8 @@ class AddressesController < ApplicationController
   def new; end
 
   def create
-    @address = Address.new(address_params)
+    parsed_address = AddressParsingService.new(address_search_string).parsed_address
+    @address = Address.new(parsed_address)
     @address.save
 
     render 'new'
@@ -14,7 +15,11 @@ class AddressesController < ApplicationController
 
   private
 
+  def address_search_string
+    address_params.values.join(' ')
+  end
+
   def address_params
-    params.permit(:city, :state)
+    params.permit(:street_address, :city, :state, :zip_code)
   end
 end
