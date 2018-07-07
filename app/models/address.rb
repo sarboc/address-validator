@@ -1,4 +1,6 @@
 class Address < ApplicationRecord
+  DIRECTIONALS = %w(N NE NW S SE SW E W)
+
   def to_s
     "#{street_address}, #{city}, #{state} #{zip_5}"
   end
