@@ -1,26 +1,35 @@
-<%= @message %>
+<% if @message %>
+  <%= @message %>
+<% end %>
+
 <%= form_tag '/addresses', method: :post do %>
-    <div>
-      <%= label_tag :street_address %>
-      <%= text_field_tag :street_address, @street_address%>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <div class="row">
+        <div class="col-12 form-group">
+          <%= label_tag :street_address, "Street Address", class: "form-label" %>
+          <%= text_field_tag :street_address, @street_address, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4 form-group">
+          <%= label_tag :city, 'City', class: "form-label" %>
+          <%= text_field_tag :city, @city, class: "form-control" %>
+        </div>
+        <div class="col-4 form-group">
+          <%= label_tag :state, 'State', class: "form-label" %>
+          <%= text_field_tag :state, @state, class: "form-control" %>
+        </div>
+        <div class="col-4 form-group">
+          <%= label_tag :zip_code, 'Zip Code', class: "form-label" %>
+          <%= text_field_tag :zip_code, @zip_code, class: "form-control" %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 buttons">
+          <%= submit_tag 'Validate Address', class: "btn btn-primary form-control" %>
+        </div>
+      </div>
     </div>
-
-    <div>
-      <%= label_tag :city %>
-      <%= text_field_tag :city, @city %>
-    </div>
-
-    <div>
-      <%= label_tag :state %>
-      <%= text_field_tag :state, @state %>
-    </div>
-
-    <div>
-      <%= label_tag :zip_code %>
-      <%= text_field_tag :zip_code, @zip_code %>
-    </div>
-
-    <div class = "buttons">
-      <%= submit_tag 'Validate Address' %>
-    </div>
+  </div>
 <% end %>
